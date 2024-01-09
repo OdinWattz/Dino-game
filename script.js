@@ -45,7 +45,7 @@ window.onload = function() {
     context = board.getContext("2d")
 
     dinoImg = new Image()
-    dinoImg.src = "./img/biker1.png"
+    dinoImg.src = "./img/dino.png"
     dinoImg.onload = function() {
         context.drawImage(dinoImg, dino.x, dino.y, dino.width, dino.height)
     }
