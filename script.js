@@ -37,6 +37,8 @@ var gravity = .39
 var gameOver = false
 var score = 0
 
+var speedUpTimer = 0
+
 window.onload = function() {
     board = document.getElementById("board")
     board.height = boardHeight
@@ -62,6 +64,13 @@ window.onload = function() {
     requestAnimationFrame(update)
     setInterval(placeCactus, 1000)
     document.addEventListener("keydown", moveDino)
+
+    setInterval(function() {
+        speedUpTimer += 1
+        if (speedUpTimer % 10 === 0) {
+            velocityX -= 0.5
+        }
+    }, 1000)
 }
 
 function update() {
@@ -163,6 +172,7 @@ function restartGame() {
     score = 0
     dino.y = dinoY
     velocityY = 0
+    velocityX = -5
     cactusArray = []
     document.removeEventListener("keydown", restartGame)
 }
