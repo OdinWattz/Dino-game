@@ -4,7 +4,9 @@ var boardHeight = 800
 var context
 
 var dinoWidth = 84
+var dinoWidthHitbox = 10
 var dinoHeight = 94
+var dinoHeightHitbox = 10
 var dinoX = 50
 var dinoY = boardHeight - dinoHeight
 var dinoImg
@@ -163,8 +165,12 @@ function showGameOverScreen() {
     context.fillText("Game Over", boardWidth / 2 - 100, boardHeight / 2 - 20)
 
     context.font = "20px courier"
-    context.fillText("Press any key to restart", boardWidth / 2 - 100, boardHeight / 2 + 20)
-    document.addEventListener("keydown", restartGame)
+    context.fillText("Press R to restart", boardWidth / 2 - 100, boardHeight / 2 + 20)
+    document.addEventListener("keydown", function(e) {
+        if (e.key === "r" || e.key === "R") {
+            restartGame()
+        }
+    })
 }
 
 function restartGame() {
@@ -174,5 +180,9 @@ function restartGame() {
     velocityY = 0
     velocityX = -5
     cactusArray = []
-    document.removeEventListener("keydown", restartGame)
+    document.addEventListener("keydown", function(e) {
+        if (e.key === "r" || e.key === "R") {
+            restartGame()
+        }
+    })
 }
