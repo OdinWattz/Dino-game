@@ -7,3 +7,5 @@ sws ondergrond echt een vloer hebben inplaats van dit.
 Fullscreen en passend krijgen/ of gewoon net als de echte dino game bovenin.
 
 Nog meer ideeen bedenken
+
+Restart key al veranderd naar R ipv All keys
