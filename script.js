@@ -49,7 +49,7 @@ window.onload = function() {
     context = board.getContext("2d")
 
     dinoImg = new Image()
-    dinoImg.src = "./img/dino.png"
+    dinoImg.src = "./img/Goldfish-pixelart.gif"
     dinoImg.onload = function() {
         context.drawImage(dinoImg, dino.x, dino.y, dino.width, dino.height)
     }
@@ -99,9 +99,18 @@ function update() {
 
     context.fillStyle = "black"
     context.font = "20px courier"
-    score++
+    score += 0.5
     context.fillText(score, 5, 20)
 }
+// if (score >= 100) {
+//     gameOver = true
+//     context.clearRect(0, 0, board.width, board.height)
+//     context.fillStyle = "black"
+//     context.font = "40px courier"
+//     context.fillText("Game Over", board.width / 2, board.height / 2)
+//     context.font = "20px courier"
+//     context.fillText("You won!", board.width / 2, board.height / 2 + 30)
+// }
 
 function moveDino(e) {
     if (gameOver) {
