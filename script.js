@@ -21,19 +21,19 @@ var fish = {
     height: fishHeight
 }
 
-var cactusArray = []
+var oceanArray = []
 
-var cactus1Width = 54
-var cactus2Width = 87
-var cactus3Width = 110
+var coralWidth = 54
+var diverWidth = 87
+var sharkWidth = 110
 
-var cactusHeight = 59
-var cactusX = 850
-var cactusY = boardHeight - cactusHeight
+var oceanHeight = 59
+var oceanX = 850
+var oceanY = boardHeight - oceanHeight
 
-var cactus1Img
-var cactus2Img
-var cactus3Img
+var coralImg
+var diverImg
+var sharkImg
 
 var velocityX = -5
 var velocityY = 0
@@ -59,18 +59,18 @@ window.onload = function() {
         context.drawImage(fishImg, fish.x, fish.y, fish.width, fish.height)
     }
 
-    cactus1Img = new Image()
-    cactus1Img.src = "./img/Coral red.png"
+    coralImg = new Image()
+    coralImg.src = "./img/Coral red.png"
 
-    cactus2Img = new Image()
-    cactus2Img.src = "./img/diver.png"
+    diverImg = new Image()
+    diverImg.src = "./img/diver.png"
 
-    cactus3Img = new Image()
-    cactus3Img.src = "./img/shark.png"
+    sharkImg = new Image()
+    sharkImg.src = "./img/shark.png"
 
 
     requestAnimationFrame(update)
-    setInterval(placeCactus, 1000)
+    setInterval(placeOcean, 1000)
     document.addEventListener("keydown", moveFish)
 
     setInterval(function() {
@@ -94,12 +94,12 @@ function update() {
     fish.y = Math.min(fish.y + velocityY, fishY)
     context.drawImage(fishImg, fish.x, fish.y, fish.width, fish.height)
 
-    for (let i = 0; i < cactusArray.length; i++) {
-        let cactus = cactusArray[i]
-        cactus.x += velocityX
-        context.drawImage(cactus.img, cactus.x, cactus.y, cactus.width, cactus.height)
+    for (let i = 0; i < oceanArray.length; i++) {
+        let ocean = oceanArray[i]
+        ocean.x += velocityX
+        context.drawImage(ocean.img, ocean.x, ocean.y, ocean.width, ocean.height)
 
-        if (detectCollision(fish, cactus)) {
+        if (detectCollision(fish, ocean)) {
             gameOver = true
         }
     }
@@ -109,15 +109,7 @@ function update() {
     score += 0.5
     context.fillText(score, 5, 20)
 }
-// if (score >= 100) {
-//     gameOver = true
-//     context.clearRect(0, 0, board.width, board.height)
-//     context.fillStyle = "black"
-//     context.font = "40px courier"
-//     context.fillText("Game Over", board.width / 2, board.height / 2)
-//     context.font = "20px courier"
-//     context.fillText("You won!", board.width / 2, board.height / 2 + 30)
-// }
+
 
 function moveFish(e) {
     if (gameOver) {
@@ -129,39 +121,39 @@ function moveFish(e) {
     }
 }
 
-function placeCactus() {
+function placeOcean() {
     if (gameOver) {
         return
     }
 
-    let cactus = {
+    let ocean = {
         img: null,
-        x: cactusX,
-        y: cactusY,
+        x: oceanX,
+        y: oceanY,
         width: null,
-        height: cactusHeight
+        height: oceanHeight
     }
 
-    let placeCactusChance = Math.random()
+    let placeOceanChance = Math.random()
 
-    if (placeCactusChance > .90) {
-        cactus.img = cactus3Img
-        cactus.width = cactus3Width
-        cactusArray.push(cactus)
+    if (placeOceanChance > .90) {
+        ocean.img = sharkImg
+        ocean.width = sharkWidth
+        oceanArray.push(ocean)
     }
-    else if (placeCactusChance > .70) {
-        cactus.img = cactus2Img
-        cactus.width = cactus2Width
-        cactusArray.push(cactus)
+    else if (placeOceanChance > .70) {
+        ocean.img = diverImg
+        ocean.width = diverWidth
+        oceanArray.push(ocean)
     }
-    else if (placeCactusChance > .50) {
-        cactus.img = cactus1Img
-        cactus.width = cactus1Width
-        cactusArray.push(cactus)
+    else if (placeOceanChance > .50) {
+        ocean.img = coralImg
+        ocean.width = coralWidth
+        oceanArray.push(ocean)
     }
 
-    if (cactusArray.length > 5) {
-        cactusArray.shift()
+    if (oceanArray.length > 5) {
+        oceanArray.shift()
     }
 }
 
@@ -192,15 +184,10 @@ function showGameOverScreen() {
 var popup = document.createElement("div");
     popup.innerHTML = "Press F11 for full screen";
     popup.style.position = "absolute";
-    popup.style.top = "10px";
-    popup.style.left = "10px";
     popup.style.padding = "10px";
-    popup.style.backgroundColor = "rgba(0, 0, 0, 0.5)";
     popup.style.color = "white";
     popup.style.fontFamily = "Arial, sans-serif";
     popup.style.fontSize = "16px";
-    document.body.appendChild(popup);
-
 
 function restartGame() {
     gameOver = false
@@ -208,7 +195,7 @@ function restartGame() {
     fish.y = fishY
     velocityY = 0
     velocityX = -5
-    cactusArray = []
+    oceanArray = []
     document.addEventListener("keydown", function(e) {
         if (e.key === "r" || e.key === "R") {
             restartGame()
