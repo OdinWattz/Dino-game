@@ -1,31 +1,34 @@
+
 var board
-var boardWidth = 1500
-var boardHeight = 800   
+var boardWidth = 750
+var boardHeight = 281   
 var context
 
-var dinoWidth = 84
-var dinoWidthHitbox = 10
-var dinoHeight = 94
-var dinoHeightHitbox = 10
-var dinoX = 50
-var dinoY = boardHeight - dinoHeight
-var dinoImg
 
-var dino = {
-    x: dinoX,
-    y: dinoY,
-    width: dinoWidth,
-    height: dinoHeight
+
+var fishWidth = 84
+var fishWidthHitbox = 10
+var fishHeight = 94
+var fishHeightHitbox = 10
+var fishX = 50
+var fishY = boardHeight - fishHeight
+var fishImg
+
+var fish = {
+    x: fishX,
+    y: fishY,
+    width: fishWidth,
+    height: fishHeight
 }
 
 var cactusArray = []
 
-var cactus1Width = 34
-var cactus2Width = 69
-var cactus3Width = 94
+var cactus1Width = 54
+var cactus2Width = 87
+var cactus3Width = 110
 
 var cactusHeight = 59
-var cactusX = 1470
+var cactusX = 850
 var cactusY = boardHeight - cactusHeight
 
 var cactus1Img
@@ -48,24 +51,27 @@ window.onload = function() {
 
     context = board.getContext("2d")
 
-    dinoImg = new Image()
-    dinoImg.src = "./img/Goldfish-pixelart.gif"
-    dinoImg.onload = function() {
-        context.drawImage(dinoImg, dino.x, dino.y, dino.width, dino.height)
+    board.style.backgroundImage = "url('./img/foregound-merged1.png')";
+
+    fishImg = new Image()
+    fishImg.src = "./img/Goldfish-pixelart.gif"
+    fishImg.onload = function() {
+        context.drawImage(fishImg, fish.x, fish.y, fish.width, fish.height)
     }
 
     cactus1Img = new Image()
-    cactus1Img.src = "./img/cactus1.png"
+    cactus1Img.src = "./img/Coral red.png"
 
     cactus2Img = new Image()
-    cactus2Img.src = "./img/cactus2.png"
+    cactus2Img.src = "./img/diver.png"
 
     cactus3Img = new Image()
-    cactus3Img.src = "./img/cactus3.png"
+    cactus3Img.src = "./img/shark.png"
+
 
     requestAnimationFrame(update)
     setInterval(placeCactus, 1000)
-    document.addEventListener("keydown", moveDino)
+    document.addEventListener("keydown", moveFish)
 
     setInterval(function() {
         speedUpTimer += 1
@@ -74,6 +80,7 @@ window.onload = function() {
         }
     }, 1000)
 }
+
 
 function update() {
     requestAnimationFrame(update)
@@ -84,15 +91,15 @@ function update() {
     context.clearRect(0, 0, board.width, board.height)
 
     velocityY += gravity
-    dino.y = Math.min(dino.y + velocityY, dinoY)
-    context.drawImage(dinoImg, dino.x, dino.y, dino.width, dino.height)
+    fish.y = Math.min(fish.y + velocityY, fishY)
+    context.drawImage(fishImg, fish.x, fish.y, fish.width, fish.height)
 
     for (let i = 0; i < cactusArray.length; i++) {
         let cactus = cactusArray[i]
         cactus.x += velocityX
         context.drawImage(cactus.img, cactus.x, cactus.y, cactus.width, cactus.height)
 
-        if (detectCollision(dino, cactus)) {
+        if (detectCollision(fish, cactus)) {
             gameOver = true
         }
     }
@@ -112,12 +119,12 @@ function update() {
 //     context.fillText("You won!", board.width / 2, board.height / 2 + 30)
 // }
 
-function moveDino(e) {
+function moveFish(e) {
     if (gameOver) {
         return
     }
 
-    if ((e.code == "Space" || e.code == "ArrowUp") && dino.y == dinoY) {
+    if ((e.code == "Space" || e.code == "ArrowUp") && fish.y == fishY) {
         velocityY = -11
     }
 }
@@ -182,10 +189,23 @@ function showGameOverScreen() {
     })
 }
 
+var popup = document.createElement("div");
+    popup.innerHTML = "Press F11 for full screen";
+    popup.style.position = "absolute";
+    popup.style.top = "10px";
+    popup.style.left = "10px";
+    popup.style.padding = "10px";
+    popup.style.backgroundColor = "rgba(0, 0, 0, 0.5)";
+    popup.style.color = "white";
+    popup.style.fontFamily = "Arial, sans-serif";
+    popup.style.fontSize = "16px";
+    document.body.appendChild(popup);
+
+
 function restartGame() {
     gameOver = false
     score = 0
-    dino.y = dinoY
+    fish.y = fishY
     velocityY = 0
     velocityX = -5
     cactusArray = []
