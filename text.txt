@@ -1,28 +1,17 @@
 Functies en ideeen:
 
-
-Spawnrate verhogen wanneer je boven bepaald aantal punten komt, want het duurt nu echt te lang je krijgt soms 1k punten zonder iets tegen te komen.
+Spawnrate verhogen wanneer je boven bepaald aantal punten komt
 Ook kijken of ze wel iets minder dicht bij elkaar kunnen spawnen, want na een bepaalde snelheid spawnen ze soms te dicht op elkaar en ben je gedoomd om iets te raken.
-
-Heel misschien animaties/Gaat het waarschijnlijk niet worden maar zou wel mooi zijn, want ik heb echt geen flauw idee hoe ik dat ding animations moet geven.
-Ik zit te denken aan dat ik meerdere movements heb en dan tussen die images switch, maar het lijkt me dat dat erg zwaar wordt op de browser, maar hoe doen die andere dat dan?
 
 Heel misschien proberen om er een einde aan te maken.
 Dus als je bij de bijvoorbeeld 30000 punten bent dat je dan een end screen krijgt, kan natuurlijk ook minder zijn of hoger, ligt eraan hoe ik het punten systeem implementeer of uitvoer.
 
-Fullscreen en passend krijgen/ of gewoon net als de echte dino game bovenin.
-Of een melding geven van: Press F11 for Fullscreen.
+hitboxen aanpassen
 
-Zelf artwork maken voor de karakters en objects waar je tegenaan kan lopen.
-Natuurlijk dus ook uitzoeken waar je die artwork kunt maken.
-Oh en ook nog proberen de artwork wel mooi te maken, want ik wil het zelf doen en kan totaal niet tekenen.
-
-Nog meer ideeen bedenken/Is al soort van gelukt.
+Fixen dat je niet elke keer op R kunt drukken want dat sloopt de game
 
 (Dat de dino kan bukken.) Doen we niet omdat dat erg veel moeite word met ook weer nieuwe enemies.
 Al is dat moeilijk kan ik het alsnog proberen, want daar kan ik wel echt iets van leren en misschien beter worden in coderen.
-
-
 
 
 Gedaan:
@@ -36,3 +25,14 @@ Dus denk dat het dan een duiker is die het karakter is.
 Je snapt vast wel wat ik ermee bedoel.
 
 Punten systeem verbeteren-gelukt!!!
+
+Fullscreen en passend krijgen/ of gewoon net als de echte dino game bovenin.
+Of een melding geven van: Press F11 for Fullscreen.
+
+Zelf artwork maken voor de karakters en objects waar je tegenaan kan lopen.
+Natuurlijk dus ook uitzoeken waar je die artwork kunt maken.
+Oh en ook nog proberen de artwork wel mooi te maken, want ik wil het zelf doen en kan totaal niet tekenen.
+
+Heel misschien animaties/Gaat het waarschijnlijk niet worden maar zou wel mooi zijn, want ik heb echt geen flauw idee hoe ik dat ding animations moet geven.
+Ik zit te denken aan dat ik meerdere movements heb en dan tussen die images switch, maar het lijkt me dat dat erg zwaar wordt op de browser, maar hoe doen die andere dat dan?
+Wordt m niet vanwege canvas
