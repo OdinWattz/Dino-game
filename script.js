@@ -1,11 +1,10 @@
-
+// Dit zorgt voor de maat van het canvas
 var board
 var boardWidth = 750
 var boardHeight = 281   
 var context
 
-
-
+// Dit zorgt voor de maat van de vis
 var fishWidth = 84
 var fishWidthHitbox = 10
 var fishHeight = 94
@@ -13,7 +12,7 @@ var fishHeightHitbox = 10
 var fishX = 50
 var fishY = boardHeight - fishHeight
 var fishImg
-
+// Dit zorgt voor de maat van de vis
 var fish = {
     x: fishX,
     y: fishY,
@@ -21,8 +20,10 @@ var fish = {
     height: fishHeight
 }
 
+// Ocean was in eerste instantie de cactus maar heb de naam veranderd naar ocean, dus officieel is het gewoon ook een obstakel
 var oceanArray = []
 
+// Dit zorgt voor de maat van de obstakels
 var coralWidth = 54
 var diverWidth = 87
 var sharkWidth = 110
@@ -35,6 +36,7 @@ var coralImg
 var diverImg
 var sharkImg
 
+// Dit zorgt voor de Jump van de vis en de gravity
 var velocityX = -5
 var velocityY = 0
 var gravity = .39
@@ -44,6 +46,9 @@ var score = 0
 
 var speedUpTimer = 0
 
+// Dit zorgt ervoor dat de canvas wordt gemaakt
+// Dit zorgt ervoor dat de afbeeldingen worden geladen
+// Dit zorgt ervoor dat de obstakels worden geplaatst via de image
 window.onload = function() {
     board = document.getElementById("board")
     board.height = boardHeight
@@ -54,7 +59,7 @@ window.onload = function() {
     board.style.backgroundImage = "url('./img/foregound-merged1.png')";
 
     fishImg = new Image()
-    fishImg.src = "./img/Goldfish-pixelart.gif"
+    fishImg.src = "./img/Goldfish-pixelart.png"
     fishImg.onload = function() {
         context.drawImage(fishImg, fish.x, fish.y, fish.width, fish.height)
     }
@@ -68,11 +73,11 @@ window.onload = function() {
     sharkImg = new Image()
     sharkImg.src = "./img/shark.png"
 
-
     requestAnimationFrame(update)
     setInterval(placeOcean, 1000)
     document.addEventListener("keydown", moveFish)
 
+    // Dit zorgt ervoor dat de snelheid van de obstakels om de 10 seconden omhoog gaat
     setInterval(function() {
         speedUpTimer += 1
         if (speedUpTimer % 10 === 0) {
@@ -82,6 +87,9 @@ window.onload = function() {
 }
 
 
+// Dit zorgt ervoor dat de canvas wordt geupdate
+// Dit zorgt ervoor dat de vis wordt geupdate
+// En dat de collision wordt geupdate
 function update() {
     requestAnimationFrame(update)
     if (gameOver) {
@@ -104,6 +112,7 @@ function update() {
         }
     }
 
+    // Dit zorgt ervoor dat de score wordt weergegeven
     context.fillStyle = "black"
     context.font = "20px courier"
     score += 0.5
@@ -111,6 +120,7 @@ function update() {
 }
 
 
+// Dit zorgt ervoor dat de vis kan springen
 function moveFish(e) {
     if (gameOver) {
         return
@@ -121,6 +131,8 @@ function moveFish(e) {
     }
 }
 
+
+// Dit zorgt ervoor dat de obstakels worden geplaatst
 function placeOcean() {
     if (gameOver) {
         return
@@ -136,6 +148,7 @@ function placeOcean() {
 
     let placeOceanChance = Math.random()
 
+    // Dit zorgt ervoor dat de obstakels random worden geplaatst en hoe groot de kans is dat ze worden geplaatst
     if (placeOceanChance > .90) {
         ocean.img = sharkImg
         ocean.width = sharkWidth
@@ -157,6 +170,8 @@ function placeOcean() {
     }
 }
 
+
+// Dit zorgt voor de collision
 function detectCollision(a, b) {
     return a.x < b.x + b.width &&
            a.x + a.width > b.x &&
@@ -164,6 +179,8 @@ function detectCollision(a, b) {
            a.y + a.height > b.y
 }
 
+// Dit zorgt voor de Game Over Screen
+// Hoe het er uitziet en wat er staat
 function showGameOverScreen() {
     context.fillStyle = "transparent"
     context.fillRect(0, 0, board.width, board.height)
@@ -181,14 +198,8 @@ function showGameOverScreen() {
     })
 }
 
-var popup = document.createElement("div");
-    popup.innerHTML = "Press F11 for full screen";
-    popup.style.position = "absolute";
-    popup.style.padding = "10px";
-    popup.style.color = "white";
-    popup.style.fontFamily = "Arial, sans-serif";
-    popup.style.fontSize = "16px";
 
+// Dit zorgt ervoor dat je het spel kan herstarten
 function restartGame() {
     gameOver = false
     score = 0

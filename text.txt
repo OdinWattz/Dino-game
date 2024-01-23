@@ -1,18 +1,6 @@
 Functies en ideeen:
 
-Spawnrate verhogen wanneer je boven bepaald aantal punten komt
-Ook kijken of ze wel iets minder dicht bij elkaar kunnen spawnen, want na een bepaalde snelheid spawnen ze soms te dicht op elkaar en ben je gedoomd om iets te raken.
-
-Heel misschien proberen om er een einde aan te maken.
-Dus als je bij de bijvoorbeeld 30000 punten bent dat je dan een end screen krijgt, kan natuurlijk ook minder zijn of hoger, ligt eraan hoe ik het punten systeem implementeer of uitvoer.
-
-hitboxen aanpassen
-
-Fixen dat je niet elke keer op R kunt drukken want dat sloopt de game
-
-(Dat de dino kan bukken.) Doen we niet omdat dat erg veel moeite word met ook weer nieuwe enemies.
-Al is dat moeilijk kan ik het alsnog proberen, want daar kan ik wel echt iets van leren en misschien beter worden in coderen.
-
+Alles is gedaan, wat ik had bedacht.
 
 Gedaan:
 
@@ -36,3 +24,19 @@ Oh en ook nog proberen de artwork wel mooi te maken, want ik wil het zelf doen e
 Heel misschien animaties/Gaat het waarschijnlijk niet worden maar zou wel mooi zijn, want ik heb echt geen flauw idee hoe ik dat ding animations moet geven.
 Ik zit te denken aan dat ik meerdere movements heb en dan tussen die images switch, maar het lijkt me dat dat erg zwaar wordt op de browser, maar hoe doen die andere dat dan?
 Wordt m niet vanwege canvas
+
+hitboxen aanpassen(hitboxen zijn gefixed, moest gewoon de image croppen en dat heeft het grotendeels gefixed. Als je ze nu raakt heb je ongeluk of ben je gewoon slecht)
+
+Fixen dat je niet elke keer op R kunt drukken want dat sloopt de game(valt niet te fixen en niet mijn probleem)
+
+Spawnrate verhogen wanneer je boven bepaald aantal punten komt
+Ook kijken of ze wel iets minder dicht bij elkaar kunnen spawnen, want na een bepaalde snelheid spawnen ze soms te dicht op elkaar en ben je gedoomd om iets te raken.
+Voor een of andere reden heeft die hitboxen aanpassen het soort van gefixed, de spawnrate is veel meer en de kans op raken is nu veel kleiner
+
+Heel misschien proberen om er een einde aan te maken.
+Dus als je bij de bijvoorbeeld 30000 punten bent dat je dan een end screen krijgt, kan natuurlijk ook minder zijn of hoger, ligt eraan hoe ik het punten systeem implementeer of uitvoer.
+niet nodig want dat is niet leuk, het hoort een infinite game te zijn en dat wil ik ook zo houden.
+
+(Dat de dino kan bukken.) Doen we niet omdat dat erg veel moeite word met ook weer nieuwe enemies.
+Al is dat moeilijk kan ik het alsnog proberen, want daar kan ik wel echt iets van leren en misschien beter worden in coderen.
+(besloten niet te doen, vanwege dat dat heel raar is om te doen en dat ik er gewoon nog geen verstand van heb)
