@@ -5,9 +5,9 @@ var boardHeight = 281
 var context
 
 // Dit zorgt voor de maat van de vis
-var fishWidth = 84
+var fishWidth = 56
 var fishWidthHitbox = 10
-var fishHeight = 94
+var fishHeight = 36
 var fishHeightHitbox = 10
 var fishX = 50
 var fishY = boardHeight - fishHeight
@@ -56,10 +56,10 @@ window.onload = function() {
 
     context = board.getContext("2d")
 
-    board.style.backgroundImage = "url('./img/foregound-merged1.png')";
+    board.style.backgroundImage = "url('./img/background.png')";
 
     fishImg = new Image()
-    fishImg.src = "./img/Goldfish-pixelart.png"
+    fishImg.src = "./img/Goldfish.png"
     fishImg.onload = function() {
         context.drawImage(fishImg, fish.x, fish.y, fish.width, fish.height)
     }
@@ -131,6 +131,24 @@ function moveFish(e) {
     }
 }
 
+var touchStartY;
+
+document.get
+
+// Listen for the touchstart event
+window.addEventListener('touchstart', function(e) {
+    touchStartY = e.touches[0].clientY;
+}, false);
+
+// Listen for the touchend event
+window.addEventListener('touchend', function(e) {
+    var touchEndY = e.changedTouches[0].clientY;
+
+    // If the swipe was upwards, make the fish jump
+    if (touchStartY > touchEndY) {
+        velocityY = -11; // Adjust this value as needed
+    }
+}, false);
 
 // Dit zorgt ervoor dat de obstakels worden geplaatst
 function placeOcean() {
@@ -190,6 +208,7 @@ function showGameOverScreen() {
     context.fillText("Game Over", boardWidth / 2 - 100, boardHeight / 2 - 20)
 
     context.font = "20px courier"
+    
     context.fillText("Press R to restart", boardWidth / 2 - 100, boardHeight / 2 + 20)
     document.addEventListener("keydown", function(e) {
         if (e.key === "r" || e.key === "R") {
