@@ -230,5 +230,3 @@ function restartGame() {
 
 // Start het spel
 startGame();
-
-
