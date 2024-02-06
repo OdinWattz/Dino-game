@@ -1,6 +1,9 @@
 Functies en ideeen:
 
-Alles is gedaan, wat ik had bedacht.
+Fixen dat de game ook goed speelt op hogere refresh rate, want game is optimised voor 60hz en niet hoger
+Game is soort van optimised voor 144hz nu maar niet meer voor 60hz in het begin gaat het goed maar uiteindelijk gaat de game laggen
+Ik geef dit op I don't care
+
 
 Gedaan:
 

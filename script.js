@@ -1,159 +1,146 @@
-// Dit zorgt voor de maat van het canvas
-var board
-var boardWidth = 750
-var boardHeight = 281   
-var context
+// Variabelen voor het canvas
+var board;
+var boardWidth = 750;
+var boardHeight = 281;
+var context;
 
-// Dit zorgt voor de maat van de vis
-var fishWidth = 56
-var fishWidthHitbox = 10
-var fishHeight = 36
-var fishHeightHitbox = 10
-var fishX = 50
-var fishY = boardHeight - fishHeight
-var fishImg
-// Dit zorgt voor de maat van de vis
+// Variabelen voor de vis
+var fishWidth = 56;
+var fishHeight = 36;
+var fishX = 50;
+var fishY = boardHeight - fishHeight;
+var fishImg;
 var fish = {
     x: fishX,
     y: fishY,
     width: fishWidth,
     height: fishHeight
+};
+
+// Variabelen voor de obstakels
+var oceanArray = [];
+var coralWidth = 54;
+var diverWidth = 87;
+var sharkWidth = 110;
+var oceanHeight = 60;
+var oceanX = 850;
+var oceanY = boardHeight - oceanHeight;
+var coralImg;
+var diverImg;
+var sharkImg;
+
+// Variabelen voor de beweging en gameplay
+var velocityX = -5;
+var velocityY = 0;
+var gravity = 0.39;
+var gameOver = false;
+var score = 0;
+var speedUpTimer = 0;
+
+// Functie om het spel te starten
+function startGame() {
+    createCanvas();
+    loadImages();
+    setupEventListeners();
+    update();
+    setInterval(placeOcean, 1000);
+    setInterval(speedUpObstacles, 5000);
 }
 
-// Ocean was in eerste instantie de cactus maar heb de naam veranderd naar ocean, dus officieel is het gewoon ook een obstakel
-var oceanArray = []
 
-// Dit zorgt voor de maat van de obstakels
-var coralWidth = 54
-var diverWidth = 87
-var sharkWidth = 110
-
-var oceanHeight = 59
-var oceanX = 850
-var oceanY = boardHeight - oceanHeight
-
-var coralImg
-var diverImg
-var sharkImg
-
-// Dit zorgt voor de Jump van de vis en de gravity
-var velocityX = -5
-var velocityY = 0
-var gravity = .39
-
-var gameOver = false
-var score = 0
-
-var speedUpTimer = 0
-
-// Dit zorgt ervoor dat de canvas wordt gemaakt
-// Dit zorgt ervoor dat de afbeeldingen worden geladen
-// Dit zorgt ervoor dat de obstakels worden geplaatst via de image
-window.onload = function() {
-    board = document.getElementById("board")
-    board.height = boardHeight
-    board.width = boardWidth
-
-    context = board.getContext("2d")
-
+// Functie om het canvas te maken
+function createCanvas() {
+    board = document.getElementById("board");
+    board.height = boardHeight;
+    board.width = boardWidth;
+    context = board.getContext("2d");
     board.style.backgroundImage = "url('./img/background.png')";
+}
 
-    fishImg = new Image()
-    fishImg.src = "./img/Goldfish.png"
+// Functie om afbeeldingen te laden
+function loadImages() {
+    fishImg = new Image();
+    fishImg.src = "./img/Goldfish.png";
     fishImg.onload = function() {
-        context.drawImage(fishImg, fish.x, fish.y, fish.width, fish.height)
-    }
+        context.drawImage(fishImg, fish.x, fish.y, fish.width, fish.height);
+    };
 
-    coralImg = new Image()
-    coralImg.src = "./img/Coral red.png"
+    coralImg = new Image();
+    coralImg.src = "./img/Coral red.png";
 
-    diverImg = new Image()
-    diverImg.src = "./img/diver.png"
+    diverImg = new Image();
+    diverImg.src = "./img/diver.png";
 
-    sharkImg = new Image()
-    sharkImg.src = "./img/shark.png"
-
-    requestAnimationFrame(update)
-    setInterval(placeOcean, 1000)
-    document.addEventListener("keydown", moveFish)
-
-    // Dit zorgt ervoor dat de snelheid van de obstakels om de 10 seconden omhoog gaat
-    setInterval(function() {
-        speedUpTimer += 1
-        if (speedUpTimer % 10 === 0) {
-            velocityX -= 0.5
-        }
-    }, 1000)
+    sharkImg = new Image();
+    sharkImg.src = "./img/shark.png";
 }
 
-
-// Dit zorgt ervoor dat de canvas wordt geupdate
-// Dit zorgt ervoor dat de vis wordt geupdate
-// En dat de collision wordt geupdate
-function update() {
-    requestAnimationFrame(update)
-    if (gameOver) {
-        showGameOverScreen()
-        return
-    }
-    context.clearRect(0, 0, board.width, board.height)
-
-    velocityY += gravity
-    fish.y = Math.min(fish.y + velocityY, fishY)
-    context.drawImage(fishImg, fish.x, fish.y, fish.width, fish.height)
-
-    for (let i = 0; i < oceanArray.length; i++) {
-        let ocean = oceanArray[i]
-        ocean.x += velocityX
-        context.drawImage(ocean.img, ocean.x, ocean.y, ocean.width, ocean.height)
-
-        if (detectCollision(fish, ocean)) {
-            gameOver = true
-        }
-    }
-
-    // Dit zorgt ervoor dat de score wordt weergegeven
-    context.fillStyle = "black"
-    context.font = "20px courier"
-    score += 0.5
-    context.fillText(score, 5, 20)
+// Functie om event listeners in te stellen
+function setupEventListeners() {
+    document.addEventListener("keydown", moveFish);
+    window.addEventListener("touchstart", handleTouchStart, false);
+    window.addEventListener("touchend", handleTouchEnd, false);
 }
 
-
-// Dit zorgt ervoor dat de vis kan springen
+// Functie om de vis te laten bewegen
 function moveFish(e) {
     if (gameOver) {
-        return
+        return;
     }
 
     if ((e.code == "Space" || e.code == "ArrowUp") && fish.y == fishY) {
-        velocityY = -11
+        velocityY = -11;
     }
 }
 
-var touchStartY;
-
-document.get
-
-// Listen for the touchstart event
-window.addEventListener('touchstart', function(e) {
+// Functie om touch events te verwerken
+function handleTouchStart(e) {
     touchStartY = e.touches[0].clientY;
-}, false);
+}
 
-// Listen for the touchend event
-window.addEventListener('touchend', function(e) {
+function handleTouchEnd(e) {
     var touchEndY = e.changedTouches[0].clientY;
 
-    // If the swipe was upwards, make the fish jump
     if (touchStartY > touchEndY) {
-        velocityY = -11; // Adjust this value as needed
+        velocityY = -11;
     }
-}, false);
+}
 
-// Dit zorgt ervoor dat de obstakels worden geplaatst
+// Functie om het spel te updaten
+function update() {
+    requestAnimationFrame(update);
+
+    if (gameOver) {
+        showGameOverScreen();
+        return;
+    }
+
+    context.clearRect(0, 0, board.width, board.height);
+
+    velocityY += gravity;
+    fish.y = Math.min(fish.y + velocityY, fishY);
+    context.drawImage(fishImg, fish.x, fish.y, fish.width, fish.height);
+
+    for (let i = 0; i < oceanArray.length; i++) {
+        let ocean = oceanArray[i];
+        ocean.x += velocityX;
+        context.drawImage(ocean.img, ocean.x, ocean.y, ocean.width, ocean.height);
+
+        if (detectCollision(fish, ocean)) {
+            gameOver = true;
+        }
+    }
+
+    context.fillStyle = "black";
+    context.font = "20px courier";
+    score += 0.5;
+    context.fillText(score, 5, 20);
+}
+
+// Functie om obstakels te plaatsen
 function placeOcean() {
     if (gameOver) {
-        return
+        return;
     }
 
     let ocean = {
@@ -162,73 +149,84 @@ function placeOcean() {
         y: oceanY,
         width: null,
         height: oceanHeight
-    }
+    };
 
-    let placeOceanChance = Math.random()
+    let placeOceanChance = Math.random();
 
-    // Dit zorgt ervoor dat de obstakels random worden geplaatst en hoe groot de kans is dat ze worden geplaatst
-    if (placeOceanChance > .90) {
-        ocean.img = sharkImg
-        ocean.width = sharkWidth
-        oceanArray.push(ocean)
-    }
-    else if (placeOceanChance > .70) {
-        ocean.img = diverImg
-        ocean.width = diverWidth
-        oceanArray.push(ocean)
-    }
-    else if (placeOceanChance > .50) {
-        ocean.img = coralImg
-        ocean.width = coralWidth
-        oceanArray.push(ocean)
+    if (placeOceanChance > 0.90) {
+        ocean.img = sharkImg;
+        ocean.width = sharkWidth;
+        oceanArray.push(ocean);
+    } else if (placeOceanChance > 0.70) {
+        ocean.img = diverImg;
+        ocean.width = diverWidth;
+        oceanArray.push(ocean);
+    } else if (placeOceanChance > 0.50) {
+        ocean.img = coralImg;
+        ocean.width = coralWidth;
+        oceanArray.push(ocean);
     }
 
     if (oceanArray.length > 5) {
-        oceanArray.shift()
+        oceanArray.shift();
     }
 }
 
+// Functie om de obstakels sneller te laten bewegen
+function speedUpObstacles() {
+    speedUpTimer += 1;
+    if (speedUpTimer % 5 === 0) {
+        velocityX -= 0.5;
+    }
+}
 
-// Dit zorgt voor de collision
+// Functie om botsingen te detecteren
 function detectCollision(a, b) {
-    return a.x < b.x + b.width &&
-           a.x + a.width > b.x &&
-           a.y < b.y + b.height &&
-           a.y + a.height > b.y
+    return (
+        a.x < b.x + b.width &&
+        a.x + a.width > b.x &&
+        a.y < b.y + b.height &&
+        a.y + a.height > b.y
+    );
 }
 
-// Dit zorgt voor de Game Over Screen
-// Hoe het er uitziet en wat er staat
+// Functie om het Game Over scherm weer te geven
 function showGameOverScreen() {
-    context.fillStyle = "transparent"
-    context.fillRect(0, 0, board.width, board.height)
+    context.fillStyle = "transparent";
+    context.fillRect(0, 0, board.width, board.height);
 
-    context.fillStyle = "white"
-    context.font = "40px courier"
-    context.fillText("Game Over", boardWidth / 2 - 100, boardHeight / 2 - 20)
+    context.fillStyle = "white";
+    context.font = "40px courier";
+    context.fillText("Game Over", boardWidth / 2 - 100, boardHeight / 2 - 20);
 
-    context.font = "20px courier"
-    
-    context.fillText("Press R to restart", boardWidth / 2 - 100, boardHeight / 2 + 20)
+    context.font = "20px courier";
+    context.fillText(
+        "Druk op R om opnieuw te starten",
+        boardWidth / 2 - 100,
+        boardHeight / 2 + 20
+    );
+
     document.addEventListener("keydown", function(e) {
         if (e.key === "r" || e.key === "R") {
-            restartGame()
+            restartGame();
         }
-    })
+    });
 }
 
-
-// Dit zorgt ervoor dat je het spel kan herstarten
+// Functie om het spel te herstarten
 function restartGame() {
-    gameOver = false
-    score = 0
-    fish.y = fishY
-    velocityY = 0
-    velocityX = -5
-    oceanArray = []
+    gameOver = false;
+    score = 0;
+    fish.y = fishY;
+    velocityY = 0;
+    velocityX = -5;
+    oceanArray = [];
     document.addEventListener("keydown", function(e) {
         if (e.key === "r" || e.key === "R") {
-            restartGame()
+            restartGame();
         }
-    })
+    });
 }
+
+// Start het spel
+startGame();

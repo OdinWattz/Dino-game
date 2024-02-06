@@ -2,6 +2,7 @@ body {
     font-family: 'Courier New', Courier, monospace;
     text-align: center;
     background-color: black;
+    overflow: hidden;
     
 }
 h1 {
@@ -21,7 +22,7 @@ p {
 
 }
 
-@media screen and (max-width: 700px) {
+@media screen and (max-width: 900px) {
     #board {
         background-color: rgb(0, 105, 190);
         border-bottom: 1px solid black;
