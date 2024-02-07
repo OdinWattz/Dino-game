@@ -1,16 +1,16 @@
 // Variabelen voor het canvas
-var board;
-var boardWidth = 750;
-var boardHeight = 281;
-var context;
+let board;
+let boardWidth = 750;
+let boardHeight = 281;
+let context;
 
 // Variabelen voor de vis
-var fishWidth = 56;
-var fishHeight = 36;
-var fishX = 50;
-var fishY = boardHeight - fishHeight;
-var fishImg;
-var fish = {
+let fishWidth = 56;
+let fishHeight = 36;
+let fishX = 50;
+let fishY = boardHeight - fishHeight;
+let fishImg;
+let fish = {
     x: fishX,
     y: fishY,
     width: fishWidth,
@@ -18,24 +18,24 @@ var fish = {
 };
 
 // Variabelen voor de obstakels
-var oceanArray = [];
-var coralWidth = 54;
-var diverWidth = 87;
-var sharkWidth = 110;
-var oceanHeight = 60;
-var oceanX = 850;
-var oceanY = boardHeight - oceanHeight;
-var coralImg;
-var diverImg;
-var sharkImg;
+let oceanArray = [];
+let coralWidth = 54;
+let diverWidth = 87;
+let sharkWidth = 110;
+let oceanHeight = 60;
+let oceanX = 850;
+let oceanY = boardHeight - oceanHeight;
+let coralImg;
+let diverImg;
+let sharkImg;
 
 // Variabelen voor de beweging en gameplay
-var velocityX = -5;
-var velocityY = 0;
-var gravity = 0.39;
-var gameOver = false;
-var score = 0;
-var speedUpTimer = 0;
+let velocityX = -5;
+let velocityY = 0;
+let gravity = 0.39;
+let gameOver = false;
+let score = 0;
+let speedUpTimer = 0;
 
 // Functie om het spel te starten
 function startGame() {
@@ -99,7 +99,7 @@ function handleTouchStart(e) {
 }
 
 function handleTouchEnd(e) {
-    var touchEndY = e.changedTouches[0].clientY;
+    let  touchEndY = e.changedTouches[0].clientY;
 
     if (touchStartY > touchEndY) {
         velocityY = -11;
